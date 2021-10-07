@@ -21,29 +21,24 @@ job "minecraft" {
         task "server" {
             driver = "java"
 
-            template {
+            artifact {
+                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/eula.txt"
                 destination = "/eula.txt"
-                data = <<EOF
-eula=true
-EOF
             }
 
-            template {
-                perms = "666"
+            artifact {
+                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/server.properties"
                 destination = "/server.properties"
-                source = "config/server.properties"
             }
 
-            template {
-                perms = "666"
+            artifact {
+                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/whitelist.json"
                 destination = "/whitelist.json"
-                source = "config/whitelist.json"
             }
 
-            template {
-                perms = "666"
+            artifact {
+                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/ops.json"
                 destination = "/ops.json"
-                source = "config/ops.json"
             }
 
             artifact {
