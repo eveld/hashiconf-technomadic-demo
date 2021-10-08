@@ -32,27 +32,27 @@ job "minecraft" {
       driver = "java"
 
       artifact {
-        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/eula.txt"
+        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/nomad_jobs/config/eula.txt"
         destination = "/"
       }
 
       artifact {
-        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/server.properties"
+        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/nomad_jobs/config/server.properties"
         destination = "/"
       }
 
       artifact {
-        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/server.zip"
+        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/server.zip"
         destination = "/"
       }
 
       artifact {
-        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/mods.zip"
+        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/mods.zip"
         destination = "/mods"
       }
 
       artifact {
-        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/world.zip"
+        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/world.zip"
         destination = "/"
       }
 

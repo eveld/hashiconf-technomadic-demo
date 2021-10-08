@@ -3,7 +3,7 @@ nomad_job "minecraft" {
 
   paths = ["files/nomad_jobs/minecraft.hcl"]
   health_check {
-    timeout    = "120s"
+    timeout    = "300s"
     nomad_jobs = ["minecraft"]
   }
 }
