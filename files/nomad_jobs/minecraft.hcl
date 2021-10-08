@@ -18,6 +18,16 @@ job "minecraft" {
       }
     }
 
+    service {
+      name = "minecraft"
+      port = "25565"
+    }
+
+    service {
+      name = "rcon"
+      port = "25575"
+    }
+
     task "server" {
       driver = "java"
 
@@ -39,6 +49,11 @@ job "minecraft" {
       artifact {
         source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/mods.zip"
         destination = "/mods"
+      }
+
+      artifact {
+        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/world.zip"
+        destination = "/"
       }
 
       config {
