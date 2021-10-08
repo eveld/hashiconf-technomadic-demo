@@ -1,66 +1,58 @@
 job "minecraft" {
-    datacenters = ["dc1"]
+  datacenters = ["dc1"]
 
-    group "minecraft" {
-        count = 1
+  group "minecraft" {
+    count = 1
 
-        network {
-            mode = "host"
+    network {
+      mode = "host"
 
-            port "minecraft" {
-                to = 25565
-                static = 25565
-            }
+      port "minecraft" {
+        to     = 25565
+        static = 25565
+      }
 
-            port "rcon" {
-                to = 25575
-                static = 25575
-            }
-        }
-        
-        task "server" {
-            driver = "java"
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/eula.txt"
-                destination = "/eula.txt"
-            }
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/server.properties"
-                destination = "/server.properties"
-            }
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/whitelist.json"
-                destination = "/whitelist.json"
-            }
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/ops.json"
-                destination = "/ops.json"
-            }
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/server.zip"
-                destination = "/"
-            }
-
-            artifact {
-                source = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/mods.zip"
-                destination = "/mods"
-            }
-
-            config {
-                jar_path = "/fabric-server-launch.jar"
-                args = ["nogui"]
-                jvm_options = ["-Xmx2048m", "-Xms256m"]
-            }
-
-            resources {
-                cpu = 100
-                memory = 4096
-            }
-        }
+      port "rcon" {
+        to     = 25575
+        static = 25575
+      }
     }
+
+    task "server" {
+      driver = "java"
+
+      artifact {
+        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/eula.txt"
+        destination = "/"
+      }
+
+      artifact {
+        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/nomad_jobs/config/server.properties"
+        destination = "/"
+      }
+
+      artifact {
+        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/server.zip"
+        destination = "/"
+      }
+
+      artifact {
+        source      = "https://github.com/eveld/nomad-minecraft-server/raw/main/files/mods.zip"
+        destination = "/mods"
+      }
+
+      config {
+        jar_path    = "/fabric-server-launch.jar"
+        args        = ["nogui"]
+        jvm_options = ["-Xmx2048m", "-Xms256m"]
+      }
+
+      resources {
+        cpu    = 100
+        memory = 4096
+      }
+    }
+  }
 }
+
+
