@@ -10,14 +10,13 @@ job "vm" {
       driver = "qemu"
 
       artifact {
-        source = "http://downloads.openwrt.org/releases/21.02.0/targets/lantiq/xway/openwrt-21.02.0-lantiq-xway-netgear_dgn3500-squashfs-factory.img"
+        source = "http://downloads.sourceforge.net/project/gns-3/Qemu%20Appliances/linux-tinycore-linux-6.4-2.img"
       }
 
       config {
-        image_path        = "local/openwrt-21.02.0-lantiq-xway-netgear_dgn3500-squashfs-factory.img"
+        image_path        = "local/linux-tinycore-linux-6.4-2.img"
         accelerator       = "kvm"
         graceful_shutdown = true
-        args              = ["-nodefaults", "-nodefconfig"]
       }
 
       resources {
