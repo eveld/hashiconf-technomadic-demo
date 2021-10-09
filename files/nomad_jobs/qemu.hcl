@@ -3,7 +3,12 @@ job "vm" {
 
   group "vm" {
     network {
-      mode = "bridge"
+      mode = "host"
+
+      port "vnc" {
+        to     = 5901
+        static = 5901
+      }
     }
 
     task "vm" {
@@ -14,9 +19,11 @@ job "vm" {
       }
 
       config {
-        image_path        = "local/linux-tinycore-linux-6.4-2.img"
-        accelerator       = "kvm"
-        graceful_shutdown = true
+        accelerator = "kvm"
+        args = [
+          "-vnc", ":1"
+        ]
+        image_path = "local/linux-tinycore-linux-6.4-2.img"
       }
 
       resources {

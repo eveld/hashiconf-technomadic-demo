@@ -1,0 +1,5 @@
+client {
+  options = {
+    "user.denylist" = ""
+  }
+}

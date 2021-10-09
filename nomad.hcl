@@ -14,6 +14,11 @@ nomad_cluster "dev" {
   }
 
   volume {
+    source      = "${file_dir()}/files/nomad_config/allow.hcl"
+    destination = "/etc/nomad.d/allow.hcl"
+  }
+
+  volume {
     source      = "${file_dir()}/files/nomad_config/plugin.hcl"
     destination = "/etc/nomad.d/plugin.hcl"
   }

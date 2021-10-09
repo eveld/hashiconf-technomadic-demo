@@ -26,5 +26,4 @@ container "consul" {
     remote = 8500
     host   = 8500
   }
-
 }
