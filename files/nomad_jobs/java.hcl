@@ -5,42 +5,38 @@ job "minecraft" {
     count = 1
 
     network {
-      mode = "host"
+      mode = "bridge"
 
-      port "minecraft" {
-        to     = 25565
-        static = 25565
+      port "server" {
+        to = 25565
       }
 
       port "rcon" {
-        to     = 25575
-        static = 25575
+        to = 25575
       }
     }
 
     service {
-      name = "minecraft"
+      name = "minecraft-server"
       port = "25565"
+
+      connect {
+        sidecar_service {}
+      }
     }
 
     service {
-      name = "rcon"
+      name = "minecraft-rcon"
       port = "25575"
+
+      connect {
+        sidecar_service {}
+      }
     }
 
     task "server" {
       driver = "java"
       user   = "root"
-
-      artifact {
-        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/nomad_jobs/config/eula.txt"
-        destination = "/"
-      }
-
-      artifact {
-        source      = "https://raw.githubusercontent.com/eveld/nomad-minecraft-server/main/files/nomad_jobs/config/server.properties"
-        destination = "/"
-      }
 
       artifact {
         source      = "https://github.com/eveld/nomad-minecraft-server/releases/download/v0.0.1/server.zip"
@@ -57,6 +53,38 @@ job "minecraft" {
         destination = "/"
       }
 
+      template {
+        destination = "/eula.txt"
+        data        = <<EOF
+        eula=true
+        EOF
+      }
+
+      template {
+        destination = "/server.properties"
+        data        = <<EOF
+        motd=HashiCraft
+        level-name=Grimslade
+        gamemode=creative
+        difficulty=peaceful
+
+        online-mode=false
+        broadcast-console-to-ops=true
+        spawn-monsters=false
+        spawn-protection=0
+
+        server-port=25565
+        query.port=25565
+
+        enable-rcon=true
+        rcon.port=25575
+        rcon.password=hashicraft
+        
+        enforce-whitelist=false
+        white-list=false
+        EOF
+      }
+
       config {
         jar_path    = "/fabric-server-launch.jar"
         args        = ["nogui"]
@@ -64,11 +92,9 @@ job "minecraft" {
       }
 
       resources {
-        cpu    = 100
+        cpu    = 1000
         memory = 4096
       }
     }
   }
 }
-
-

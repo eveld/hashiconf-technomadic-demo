@@ -6,11 +6,15 @@ job "promtail" {
   group "promtail" {
     network {
       mode = "bridge"
+
+      port "http" {
+        to = 80
+      }
     }
 
     service {
-      name = "loki"
-      port = "21000"
+      name = "promtail"
+      port = "80"
 
       connect {
         sidecar_service {
@@ -28,7 +32,9 @@ job "promtail" {
       driver = "raw_exec"
 
       artifact {
-        source = "https://github.com/grafana/loki/releases/download/v2.3.0/promtail-linux-amd64.zip"
+        source      = "https://github.com/grafana/loki/releases/download/v2.3.0/promtail-linux-amd64.zip"
+        mode        = "file"
+        destination = "local/promtail"
       }
 
       template {
@@ -53,7 +59,7 @@ EOF
       }
 
       config {
-        command = "promtail-linux-amd64"
+        command = "local/promtail"
         args    = ["-config.file=local/config.yaml"]
       }
 

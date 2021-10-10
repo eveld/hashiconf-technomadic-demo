@@ -27,6 +27,11 @@ nomad_cluster "dev" {
     source      = "${file_dir()}/files/nomad_plugins/minecraft"
     destination = "/var/lib/nomad/plugins/minecraft"
   }
+
+  volume {
+    source      = "${file_dir()}/files/qemu"
+    destination = "/opt/qemu"
+  }
 }
 
 output "NOMAD_ADDR" {

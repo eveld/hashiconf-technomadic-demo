@@ -1,13 +1,16 @@
+//
+// Minecraft game endpoint.
+//
 nomad_ingress "minecraft_server" {
   cluster = "nomad_cluster.dev"
 
-  job   = "minecraft"
-  group = "minecraft"
-  task  = "server"
+  job   = "ingress"
+  group = "ingress"
+  task  = ""
 
   port {
     local  = 25565
-    remote = "minecraft"
+    remote = "minecraft-server"
     host   = 25565
   }
 
@@ -16,16 +19,19 @@ nomad_ingress "minecraft_server" {
   }
 }
 
+//
+// Minecraft RCON endpoint.
+//
 nomad_ingress "minecraft_rcon" {
   cluster = "nomad_cluster.dev"
 
-  job   = "minecraft"
-  group = "minecraft"
-  task  = "server"
+  job   = "ingress"
+  group = "ingress"
+  task  = ""
 
   port {
     local  = 25575
-    remote = "rcon"
+    remote = "minecraft-rcon"
     host   = 25575
   }
 
@@ -34,17 +40,20 @@ nomad_ingress "minecraft_rcon" {
   }
 }
 
+//
+// QEMU vnc endpoint.
+//
 nomad_ingress "vm" {
   cluster = "nomad_cluster.dev"
 
-  job   = "vm"
-  group = "vm"
-  task  = "vm"
+  job   = "ingress"
+  group = "ingress"
+  task  = ""
 
   port {
-    local  = 5901
-    remote = "vnc"
-    host   = 5901
+    local  = 8080
+    remote = "qemu-vnc"
+    host   = 8080
   }
 
   network {
@@ -52,6 +61,9 @@ nomad_ingress "vm" {
   }
 }
 
+//
+// Grafana endpoint.
+//
 nomad_ingress "grafana" {
   cluster = "nomad_cluster.dev"
 
