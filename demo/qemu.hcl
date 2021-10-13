@@ -1,19 +1,17 @@
-job "vm" {
+job "qemu" {
   datacenters = ["dc1"]
 
-  group "vm" {
+  group "qemu" {
     network {
       mode = "bridge"
 
-      port "vm" {
-        to = 5901
-      }
-
+      // ports
       port "vnc" {
         to = 8080
       }
     }
 
+    // services
     service {
       name = "qemu-vnc"
       port = "8080"
@@ -21,7 +19,7 @@ job "vm" {
       connect {
         sidecar_service {
           proxy {
-            // This would be 10.0.2.2:25575 inside of the VM.
+            // This will be 10.0.2.2:25575 inside of the VM.
             upstreams {
               destination_name = "minecraft-rcon"
               local_bind_port  = 25575
@@ -46,14 +44,16 @@ job "vm" {
       }
     }
 
-    task "vm" {
+    task "qemu" {
       driver = "qemu"
 
+      // artifacts
       artifact {
         source = "http://downloads.sourceforge.net/project/gns-3/Qemu%20Appliances/linux-tinycore-linux-6.4-2.img"
       }
 
       config {
+        // config
         accelerator = "kvm"
         image_path  = "local/linux-tinycore-linux-6.4-2.img"
         args = [
@@ -64,6 +64,7 @@ job "vm" {
       }
 
       resources {
+        // resources
         cpu    = 100
         memory = 256
       }

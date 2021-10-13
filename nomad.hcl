@@ -19,6 +19,11 @@ nomad_cluster "dev" {
   }
 
   volume {
+    source      = "${file_dir()}/files/nomad_config/volume.hcl"
+    destination = "/etc/nomad.d/volume.hcl"
+  }
+
+  volume {
     source      = "${file_dir()}/files/nomad_config/plugin.hcl"
     destination = "/etc/nomad.d/plugin.hcl"
   }
@@ -29,8 +34,8 @@ nomad_cluster "dev" {
   }
 
   volume {
-    source      = "${file_dir()}/files/qemu"
-    destination = "/opt/qemu"
+    source      = "${file_dir()}/files/java/jobs"
+    destination = "/opt/nomad/jobs"
   }
 }
 
